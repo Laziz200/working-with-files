@@ -1,22 +1,33 @@
 #include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
 int main(){
 
-    FILE *f = fopen("data.txt", "r");
+    FILE *f = fopen("data.txt", "r+");
 
-    char word1[100], word2[100];
+    char word[10];
 
-    fscanf(f, "%s", word1);
-    puts(word1);
+    scanf("%s", word);
 
-    fscanf(f, "%s", word2);
-    puts(word2);
-    
-    if (feof(f)) {
-        printf("stream is done..\n");
-    } else {
-        printf("Stream is not done..\n");
+    while (!feof(f)) {
+        char temp[10];
+        fscanf(f, "%s", temp);
+
+        puts(temp);
+
+        if (strcmp(temp, word) == 0) {
+            for (int i = 0; i < 10; i++) {
+                if (islower(temp[i])) {
+                    temp[i] = toupper(temp[i]);
+                }
+            }
+            fseek(f, -strlen(temp), SEEK_CUR);
+            fprintf(f, "%s", temp);
+        }
     }
+   
+    fclose(f);
 
     return 0;
 }
