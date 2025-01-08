@@ -1,0 +1,6 @@
+apple
+microsoft
+amazon
+linkedin
+fecabook
+google
